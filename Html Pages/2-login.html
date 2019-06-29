@@ -1,0 +1,101 @@
+<script
+  src="https://code.jquery.com/jquery-1.12.4.min.js"
+  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+  crossorigin="anonymous"></script>
+<script type=text/javascript>
+    //w();
+    function w() {
+    //alert("kkk");
+	var form_data = new FormData($('#aws-lambda')[0]);
+    $.ajax({
+    url: 'https://8ma3imfdx5.execute-api.us-east-1.amazonaws.com/Login/login',
+	crossDomain: true,
+	contentType:"json",
+	headers: { 
+        'Content-Type': 'text/plain'
+        },
+    
+        type: 'POST',
+		dataType: "json",
+	data:JSON.stringify({"LEmail":document.getElementById('lemail').value, "LPassword":document.getElementById('lpassword').value}),
+    success: function(data) {
+		var statuscode=JSON.stringify(data.statusCode)
+		var Raspberry_Id=JSON.stringify(data.Raspberry_Id)
+		var email=document.getElementById('lemail').value
+		//alert(JSON.stringify(data))
+			if(statuscode==200){
+			//var a=readCookie("Raspberry_Id");
+			//alert(a)*/
+			//Cookies.set("Raspberry_Id",document.getElementById('Raspberry_Id').value, {expiry : 3600});
+			//var Raspberry_Id=  Cookies.get(Raspberry_Id");
+			var now = new Date();
+			now.setMonth( now.getMonth() + 1 );
+			cookievalue = Raspberry_Id + ";"
+			cookievalue1= email + ";"
+			document.cookie="name=" + cookievalue;
+			document.cookie="value=" + cookievalue1;
+			//alert("Setting Cookies : " + "name=" + cookievalue );
+			location.href = "3-display.html"
+			}
+
+			else{
+				alert("Enter Right Credentials")
+			}
+    },
+    });
+	return false;
+}
+</script>
+
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Login Form</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+		<link href="reg.css" rel="stylesheet" type="text/css" media="all" />
+	</head>
+
+	<body>
+		<div class="main wrapper">
+			<h1>LOGIN YOURSELF</h1>
+			<div class="main-agileinfo">
+				<div class="agileits-top">
+					<form action="#" name="myform" onsubmit="return false;" method="post">
+						<input class="text email" type="email" id="lemail" name="lemail" placeholder="Email" required="">
+						<input class="text" type="password" id="lpassword" name="lpassword" placeholder="Password" value="" id="myInput" required=""><br><br>
+						<input type="checkbox" onclick="myFunction()">Show Password
+						<input type="submit" value="Login" onclick="w()">
+					</form>	
+				</div>
+			</div>
+			
+			<ul class="colorlib-bubbles">
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+		
+	<script>
+		function myFunction() {
+		var x = document.getElementById("lpassword");
+		if (x.type === "password") {
+			x.type = "text";
+		} else {
+			x.type = "password";
+		}
+		}
+	</script>
+
+	</body>
+</html> 
